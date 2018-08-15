@@ -182,7 +182,9 @@ tokens {
     def setCardState(self, name):
         self._state.card = name
 }
-
+// The line below throws:
+// error(50): /home/robert/magictg/demystify/demystify/grammar/Demystify.g:186:28: syntax error: '->' came as a complete surprise to me while looking for rule element
+// error(50): /home/robert/magictg/demystify/demystify/grammar/Demystify.g:186:31: syntax error: '^' came as a complete surprise to me
 card_mana_cost : mc_symbols -> ^( COST mc_symbols );
 
 // Literals used in parsing rules don't have to be declared,
