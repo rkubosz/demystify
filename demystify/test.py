@@ -24,7 +24,7 @@ import os
 import re
 import unittest
 
-import antlr3
+import antlr4
 
 from grammar import DemystifyLexer, DemystifyParser
 
@@ -63,11 +63,11 @@ class IgnoreCaseDiffer(difflib.Differ, object):
 
 def _token_stream(name, text):
     """ Helper method for generating a token stream from text. """
-    char_stream = antlr3.ANTLRStringStream(text)
+    char_stream = antlr4.ANTLRStringStream(text)
     lexer = DemystifyLexer.DemystifyLexer(char_stream)
     lexer.card = name
     # tokenizes completely and logs on errors
-    return antlr3.CommonTokenStream(lexer)
+    return antlr4.CommonTokenStream(lexer)
 
 def parse_text(name, rule, text):
     ts = _token_stream(name, text)

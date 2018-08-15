@@ -30,7 +30,7 @@ _stdout.setLevel(logging.WARNING)
 _stdout.setFormatter(logging.Formatter(fmt='%(levelname)s: %(message)s'))
 plog.addHandler(_stdout)
 
-import antlr3
+import antlr4
 
 import card
 import data
@@ -56,11 +56,11 @@ def get_cards():
 
 def _token_stream(name, text):
     """ Helper method for generating a token stream from text. """
-    char_stream = antlr3.ANTLRStringStream(text)
+    char_stream = antlr4.ANTLRStringStream(text)
     lexer = DemystifyLexer.DemystifyLexer(char_stream)
     lexer.card = name
     # tokenizes completely and logs on errors
-    return antlr3.CommonTokenStream(lexer)
+    return antlr4.CommonTokenStream(lexer)
 
 def _lex(c):
     try:
@@ -95,7 +95,7 @@ def pprint_tokens(tokens):
         return
     tlen = max(len(t.text) for t in tokens)
     for t in tokens:
-        if t.channel != antlr3.HIDDEN_CHANNEL:
+        if t.channel != antlr4.HIDDEN_CHANNEL:
             print('{0.line:>2} {0.charPositionInLine:>4} {0.index:>3} '
                   '{0.text:{tlen}} {0.typeName}'
                   .format(t, tlen=tlen))
@@ -162,7 +162,7 @@ def _crawl_tree_for_errors(name, lineno, text, tree):
         n = queue.pop(0)
         if n.children:
             queue.extend(n.children)
-        if isinstance(n, antlr3.tree.CommonErrorNode):
+        if isinstance(n, antlr4.tree.CommonErrorNode):
             mstart = n.trappedException.token.start
             mend = text.find(',', mstart)
             if mend < 0:
